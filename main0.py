@@ -15,14 +15,14 @@ model = nn.Sequential(
     nn.Linear(2, 1), #入力2次元、出力1次元の全結合層
 )
 
-print(f'初期値| x:{x}, label:{label}, pred:{model(x)}')
+print(f'x:{x}, label:{label}, pred:{model(x)}')
 print(f'x.shape:{x.shape}, label.shape:{label.shape}, pred.shape:{model(x).shape}')
 # visualization
 print(summary(model, input_size=(1, 3)))
 
 lr = 0.01
 criterion = nn.MSELoss() #損失関数:平均二乗誤差
-optimizer = optim.Adam(model.parameters(), lr=lr) #最適化手法:Adam
+optimizer = optim.Adam(model.parameters(), lr=lr)
 model, x = model.to('cpu'), x.to('cpu') #モデルと入力をCPUに移動
 
 for epoch in range(200):
