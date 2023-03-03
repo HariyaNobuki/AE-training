@@ -39,6 +39,7 @@ print("train iteration number: ",len(train_data)//BATCH_SIZE)   #train iteration
 print("val data size: ",len(val_data))   #val data size:  12000
 print("val iteration number: ",len(val_data)//BATCH_SIZE)   #val iteration number:  120
 
+# use loader
 images, labels = next(iter(train_loader))
 print("images_size:",images.size())   #images_size: torch.Size([100, 1, 28, 28])
 print("label:",labels[:10])   #label: tensor([7, 6, 0, 6, 4, 8, 5, 2, 2, 3])
