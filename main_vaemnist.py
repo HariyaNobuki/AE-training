@@ -104,7 +104,7 @@ def criterion(predict, target, ave, log_dev):
   return loss
 
 z_dim = 2
-num_epochs = 20
+num_epochs = 10
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") 
 model = VAE(z_dim).to(device)
@@ -197,3 +197,40 @@ for label in range(10):
   plt.annotate(label, xy=(np.mean(x),np.mean(y)),size=20,color="black")
 plt.legend(loc="upper left")
 plt.savefig('annotation_{}.png'.format(batch_num))
+
+# 0の潜在変数の平均値をモデルのデコーダに流す
+model.to("cpu")
+label = 0
+x_zero_mean = np.mean(ave_np[batch_num:,:,0][labels_np[batch_num:,:] == label])   #x軸の平均値
+y_zero_mean = np.mean(ave_np[batch_num:,:,1][labels_np[batch_num:,:] == label])   #y軸の平均値
+z_zero = torch.tensor([x_zero_mean,y_zero_mean], dtype = torch.float32)
+output = model.decoder(z_zero)
+np_output = output.to('cpu').detach().numpy().copy()
+np_image = np.reshape(np_output, (28, 28))
+plt.imshow(np_image, cmap='gray')
+# 1の潜在変数の平均値をモデルのデコーダに流す
+label = 1
+x_one_mean = np.mean(ave_np[batch_num:,:,0][labels_np[batch_num:,:] == label])   #x軸の平均値
+y_one_mean = np.mean(ave_np[batch_num:,:,1][labels_np[batch_num:,:] == label])   #y軸の平均値
+z_one = torch.tensor([x_one_mean,y_one_mean], dtype = torch.float32)
+output = model.decoder(z_one)
+np_output = output.to('cpu').detach().numpy().copy()
+np_image = np.reshape(np_output, (28, 28))
+plt.imshow(np_image, cmap='gray')
+
+def plot(frame):
+    plt.cla()
+    z_zerotoone = ((99 - frame) * z_zero +  frame * z_one) / 99
+    output = model.decoder(z_zerotoone)
+    np_output = output.detach().numpy().copy()
+    np_image = np.reshape(np_output, (28, 28))
+    plt.imshow(np_image, cmap='gray')
+    plt.xticks([]);plt.yticks([])
+    plt.title("frame={}".format(frame))
+
+fig = plt.figure(figsize=(4,4))
+frames = []
+
+ani = animation.FuncAnimation(fig, plot, frames=99, interval=100)
+ani.save("plot2.gif",writer='imagemagick')
+rc('animation', html='jshtml')
