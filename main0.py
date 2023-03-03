@@ -3,7 +3,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torchinfo import summary
 
-torch.manual_seed(0) #乱数の固定
+# make random 
+torch.manual_seed(0)
 
 x = torch.tensor([[1., 2., 3.]]) #入力値
 label = torch.tensor([[1.]]) #正解ラベル
@@ -16,6 +17,7 @@ model = nn.Sequential(
 
 print(f'初期値| x:{x}, label:{label}, pred:{model(x)}')
 print(f'x.shape:{x.shape}, label.shape:{label.shape}, pred.shape:{model(x).shape}')
+# visualization
 print(summary(model, input_size=(1, 3)))
 
 lr = 0.01
