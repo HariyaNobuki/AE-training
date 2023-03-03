@@ -44,6 +44,7 @@ plt.imshow(_[0].reshape(28, 28), cmap='gray')
 class Autoencoder(nn.Module):
     def __init__(self):
         super().__init__()
+        # torchはネットワークの話を記述する
         self.l1 = nn.Linear(784, 200) # エンコーダー(200ユニット)
         self.l2 = nn.Linear(200, 784) # デコーダー(784ユニット)
 
