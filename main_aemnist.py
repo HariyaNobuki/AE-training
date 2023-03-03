@@ -72,6 +72,7 @@ for epoch in range(epochs):
     train_loss = 0.
     # ミニバッチのループ(ステップ)
     for (x, _) in train_dataloader:
+        # 毎回書き直すのは理解できないがおそらく仕様
         x = x.to(device) # デバイスの割り当て
         model.train()    # 訓練モードにする
         preds = model(x) # モデルの出力を取得
