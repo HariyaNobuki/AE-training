@@ -34,7 +34,9 @@ test_dataloader = DataLoader(mnist_test,     # テストデータ
 
 import matplotlib.pyplot as plt
 
+# type of tuple
 _ = mnist_train[0]
+# flatten size
 print(f'type:{type(_)}, data:{_[0].shape}, label:{_[1]}')
 print(f'最大値:{_[0].max()}, 最小値:{_[0].min()}')
 plt.imshow(_[0].reshape(28, 28), cmap='gray')
