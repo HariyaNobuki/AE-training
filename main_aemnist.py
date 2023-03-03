@@ -5,7 +5,7 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 
 # トランスフォームオブジェクトを生成
-# おそらくテンソル型なので先出しなんだろう
+# torchしていて不可解なやつ
 transform = transforms.Compose(
     [transforms.ToTensor(), # Tensorオブジェクトに変換
      nn.Flatten()]) # データの形状を(28, 28)から784,)に変換
