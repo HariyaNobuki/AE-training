@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torchinfo import summary
 
+# これはAEではないという認識でOK?
+
 # make random 
 torch.manual_seed(0)
 
